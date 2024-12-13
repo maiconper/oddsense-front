@@ -7,48 +7,14 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import Fixture from "./Fixture";
+import { FaCircle } from "react-icons/fa";
+import { keyframes } from "@mui/system";
 
-const FixturesCarousel = ({ league }) => {
-    const [fixtures, setFixtures] = useState([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const fetchFixtures = async () => {
-            try {
-                const response = await fetch("http://localhost:8080/api/fixtures/today");
-                if (!response.ok) {
-                    throw new Error("Erro ao buscar os dados das fixtures.");
-                }
-                const data = await response.json();
-                setFixtures(data);
-            } catch (error) {
-                console.error("Erro na chamada da API:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchFixtures();
-    }, []);
-
-    if (loading) {
-        return (
-            <Box sx={{ textAlign: "center", color: "#FFFFFF", mt: 4 }}>
-                <CircularProgress color="primary" />
-                <Typography variant="h6" sx={{ mt: 2 }}>
-                    Carregando jogos...
-                </Typography>
-            </Box>
-        );
-    }
-
-    if (fixtures.length === 0) {
-        return (
-            <Box sx={{ textAlign: "center", color: "#FFFFFF", mt: 4 }}>
-                <Typography variant="h6">Nenhum jogo encontrado para hoje.</Typography>
-            </Box>
-        );
-    }
+const FixturesCarousel = ({ fixtures }) => {
+    const blink = keyframes`
+    0%, 100% { opacity: 1  ; }
+    50% { opacity: 0.5; }
+  `;
 
     return (
         <Box
@@ -62,15 +28,38 @@ const FixturesCarousel = ({ league }) => {
                 boxSizing: "border-box",
             }}
         >
-            <Typography variant="h4" sx={{ marginBottom: "16px", textAlign: "center" }}>
-                Jogos Ao Vivo
-            </Typography>
+            {/* Título com Ícone de Ao Vivo */}
+            <Box
+                sx={{
+                    display: "flex",
+                    alignItems: "center", // Alinha verticalmente o ícone com o texto
+                    justifyContent: "center",
+                    gap: "8px", // Espaçamento entre o texto e o ícone
+                    marginBottom: "16px",
+                }}
+            >
+                <Typography variant="h4" sx={{ textAlign: "center", color: "#FFFFFF" }}>
+                    Ao Vivo
+                </Typography>
+                <Box
+                    sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        animation: `${blink} 2s infinite`,
+                    }}
+                >
+                    <FaCircle style={{ color: "red", fontSize: "16px" }} />
+                </Box>;
+            </Box>
+
+            {/* Carrossel */}
             <Swiper
                 modules={[Navigation, Pagination, Scrollbar, A11y]}
                 navigation={true}
                 pagination={{ clickable: true }}
                 spaceBetween={10} // Espaço entre os slides
-                slidesPerView={5} // Exibe 3 slides por vez
+                slidesPerView={5} // Exibe 5 slides por vez
                 style={{
                     width: "100%",
                     height: "100%",
@@ -89,6 +78,16 @@ const FixturesCarousel = ({ league }) => {
                     </SwiperSlide>
                 ))}
             </Swiper>
+
+            {/* Keyframes CSS */}
+            <style>
+                {`
+                @keyframes blink {
+                    0%, 100% { opacity: 1; } // Totalmente visível
+                    50% { opacity: 0; }     // Invisível no meio da animação
+                }
+                `}
+            </style>
         </Box>
     );
 };
