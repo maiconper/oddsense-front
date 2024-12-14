@@ -67,14 +67,14 @@ const FixturesCarousel = ({ fixtures }) => {
             >
                 {fixtures.map((fixture) => (
                     <SwiperSlide
-                        key={fixture.id}
+                        key={fixture.fixture.id}
                         style={{
                             display: "flex",
                             justifyContent: "center",
                             alignItems: "center",
                         }}
                     >
-                        <Fixture fixture={fixture} />
+                        <Fixture fixture={fixture.fixture} />
                     </SwiperSlide>
                 ))}
             </Swiper>

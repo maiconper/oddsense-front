@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 import { FaFire } from "react-icons/fa";
+import Bet from "./Bet";
 
 const FeaturedFixtures = ({ fixtures }) => {
     return (
@@ -37,8 +38,10 @@ const FeaturedFixtures = ({ fixtures }) => {
                     width: "100%",
                 }}
             >
-                {fixtures.slice(0, 6).map((fixture) => {
+                {fixtures.slice(0, 6).map((item) => {
                     // Validação para garantir que os dados estão disponíveis
+                    const fixture = item.fixture;
+                    const bet = item.fixtureBets;
                     const homeTeam = fixture?.homeTeam || { name: "N/A", logo: "" };
                     const awayTeam = fixture?.awayTeam || { name: "N/A", logo: "" };
                     const goals = fixture?.goals || { home: 0, away: 0 };
@@ -194,6 +197,7 @@ const FeaturedFixtures = ({ fixtures }) => {
                                 >
                                     {league.name}
                                 </Typography>
+                                <Bet bet={bet[0]} />
                             </Box>
                         </Box>
                     );
