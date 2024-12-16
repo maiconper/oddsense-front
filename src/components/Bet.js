@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
 
 const Bet = ({ bet }) => {
     return (
@@ -26,14 +26,59 @@ const Bet = ({ bet }) => {
             </Typography>
 
             {/* Odds */}
-            <Typography
-                variant="body2"
+            <Box
                 sx={{
-                    color: "#FFFFFF",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    gap: "8px",
                 }}
             >
-                {`Casa: ${bet.homeOdd} | Empate: ${bet.drawOdd} | Fora: ${bet.awayOdd}`}
-            </Typography>
+                <Button
+                    variant="contained"
+                    sx={{
+                        backgroundColor: "#2196F3", // Azul para destacar
+                        color: "#FFFFFF",
+                        fontWeight: "bold",
+                        flex: 1,
+                        textTransform: "none",
+                        ":hover": {
+                            backgroundColor: "#1976D2", // Azul mais escuro ao passar o mouse
+                        },
+                    }}
+                >
+                    Casa: {bet.homeOdd}
+                </Button>
+                <Button
+                    variant="contained"
+                    sx={{
+                        backgroundColor: "#4CAF50", // Verde para empate
+                        color: "#FFFFFF",
+                        fontWeight: "bold",
+                        flex: 1,
+                        textTransform: "none",
+                        ":hover": {
+                            backgroundColor: "#388E3C", // Verde mais escuro ao passar o mouse
+                        },
+                    }}
+                >
+                    Empate: {bet.drawOdd}
+                </Button>
+                <Button
+                    variant="contained"
+                    sx={{
+                        backgroundColor: "#F44336", // Vermelho para fora
+                        color: "#FFFFFF",
+                        fontWeight: "bold",
+                        flex: 1,
+                        textTransform: "none",
+                        ":hover": {
+                            backgroundColor: "#D32F2F", // Vermelho mais escuro ao passar o mouse
+                        },
+                    }}
+                >
+                    Fora: {bet.awayOdd}
+                </Button>
+            </Box>
         </Box>
     );
 };

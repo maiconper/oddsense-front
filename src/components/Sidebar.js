@@ -43,13 +43,13 @@ const Sidebar = ({ onLeagueSelect }) => {
   return (
     <Box sx={{
       height: "100%", // Altura total
-      width: "250px", // Define uma largura fixa para a Sidebar
+      width: "100px", // Define uma largura fixa para a Sidebar
       overflowY: "auto", // Adiciona barra de rolagem vertical se necessário
       padding: 2,
       backgroundColor: "#121212", // Cor de fundo para destacar a Sidebar
     }}>
       <Typography variant="h6" sx={{ color: "#FFFFFF", mb: 2 }}>
-        Ligas por País
+        Principais Ligas
       </Typography>
       <List>
         {Object.entries(leaguesByCountry).map(([country, leagues]) => (

@@ -3,7 +3,7 @@ import { Box, Typography } from "@mui/material";
 import { FaFire } from "react-icons/fa";
 import Bet from "./Bet";
 
-const FeaturedFixtures = ({ fixtures }) => {
+const FeaturedFixtures = ({ fixtures, onFixtureSelect }) => {
     return (
         <Box
             sx={{
@@ -14,7 +14,7 @@ const FeaturedFixtures = ({ fixtures }) => {
                 width: "100%",
                 padding: "16px",
                 boxSizing: "border-box",
-                backgroundColor: "#1e1e1e",
+                //backgroundColor: "#1e1e1e",
                 borderRadius: "8px",
             }}
         >
@@ -46,6 +46,7 @@ const FeaturedFixtures = ({ fixtures }) => {
                     const awayTeam = fixture?.awayTeam || { name: "N/A", logo: "" };
                     const goals = fixture?.goals || { home: 0, away: 0 };
                     const league = fixture?.league || { name: "Sem Liga" };
+                    console.log("Bet para fixture", fixture.id, ":", bet);
 
                     return (
                         <Box
@@ -56,11 +57,13 @@ const FeaturedFixtures = ({ fixtures }) => {
                                 alignItems: "center",
                                 justifyContent: "space-between",
                                 width: "150va",
-                                height: "250px",
+                                height: "200va",
                                 position: "relative",
                                 overflow: "hidden", // Garante que o GIF não ultrapasse os limites do card
                                 borderRadius: "12px",
                             }}
+
+                            onClick={() => onFixtureSelect({ fixture, bet })} // Chama a função ao clicar
                         >
                             {/* GIF como fundo */}
                             <img
@@ -197,7 +200,9 @@ const FeaturedFixtures = ({ fixtures }) => {
                                 >
                                     {league.name}
                                 </Typography>
-                                <Bet bet={bet[0]} />
+                                {bet.map((item) => (
+                                    <Bet bet={item} key={item.id} />
+                                ))}
                             </Box>
                         </Box>
                     );
